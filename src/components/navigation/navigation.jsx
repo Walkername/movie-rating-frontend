@@ -4,10 +4,13 @@ function NavigationBar() {
         <nav>
             <ul>
                 <li>
+                    <a href="/">Main Page</a>
+                </li>
+                <li>
                     <a href="/profile">Profile</a>
                 </li>
                 <li>
-                    <a href="/">Add Movie (Admin)</a>
+                    <a href="/movie/add">Add Movie (Admin)</a>
                 </li>
             </ul>
         </nav>

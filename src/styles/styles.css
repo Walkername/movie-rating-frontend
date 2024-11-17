@@ -1,0 +1,8 @@
+.form-field {
+    display: flex; /* Use Flexbox to center content */
+    justify-content: center; /* Center horizontally */
+}
+
+input {
+    margin-bottom: 5px;
+}

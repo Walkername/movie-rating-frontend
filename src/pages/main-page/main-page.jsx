@@ -5,7 +5,13 @@ function MainPage() {
     return (
         <div>
             <NavigationBar />
-            <Header />
+            <div>
+                <h1>Main Page</h1>
+            </div>
+
+            <div>
+                <h2>Movie List</h2>
+            </div>
         </div>
 
     )
