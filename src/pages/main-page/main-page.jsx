@@ -1,4 +1,3 @@
-import Header from '../../components/header/header';
 import NavigationBar from '../../components/navigation/navigation';
 
 function MainPage() {
@@ -9,8 +8,15 @@ function MainPage() {
                 <h1>Main Page</h1>
             </div>
 
-            <div>
-                <h2>Movie List</h2>
+            <div className="page-content-container">
+                <div className="page-content">
+                    <div>
+                        <h2>Movie List</h2>
+                        <div>
+                            Interstellar
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
