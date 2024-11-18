@@ -1,6 +1,62 @@
-.form-field {
+h1 {
     display: flex; /* Use Flexbox to center content */
     justify-content: center; /* Center horizontally */
+    /*height: 100vh; /* Full viewport height */
+    /*background-color: #f0f0f0; /* Optional: Add a background color */
+}
+
+.page-content-container {
+    display: flex; /* Use Flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.page-content {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    max-width: 400px;
+    padding-left: 250px;
+    padding-right: 250px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+.user-data-content {
+    flex-grow: 1;  /* Makes UserData take as much space as possible */
+}
+
+.user-edit-div {
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.user-edit-button {
+    width: 60px;
+}
+
+nav {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+
+.nav-element {
+    height: 100%;
+    position: inherit;
+    font-size: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border: 2px solid black;
+    align-content: center;
+    
+}
+
+.nav-element:hover {
+    cursor: pointer;
+    background-color: rgb(176, 241, 122);
 }
 
 input {

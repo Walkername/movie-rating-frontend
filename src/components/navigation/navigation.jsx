@@ -1,19 +1,33 @@
+import { useNavigate } from "react-router-dom";
 
 function NavigationBar() {
+    const navigate = useNavigate();
+
+    const handleClick = (target) => {
+        navigate(target);
+    }
+
+    const links = [
+        { text: "Main Page", path: "/" },
+        { text: "Profile", path: "/profile" },
+        { text: "Add Movie (Admin)", path: "/movie/add" },
+    ];
+
     return (
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Main Page</a>
-                </li>
-                <li>
-                    <a href="/profile">Profile</a>
-                </li>
-                <li>
-                    <a href="/movie/add">Add Movie (Admin)</a>
-                </li>
-            </ul>
-        </nav>
+        <div>
+            <nav>
+                {links.map((link, index) => (
+                    <span
+                        className="nav-element"
+                        key={index}
+                        onClick={
+                            () => handleClick(link.path)}
+                    >
+                        {link.text}
+                    </span>
+                ))}
+            </nav>
+        </div >
     )
 }
 
