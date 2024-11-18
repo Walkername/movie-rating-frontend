@@ -1,23 +1,32 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 
-function UserDataEdit({ username, description }) {
-    const navigate = useNavigate();
+function UserDataEdit({ username: initialUsername, description: initialDescription }) {
+    const [username, setUsername] = useState(initialUsername);
+    const [description, setDescription] = useState(initialDescription);
 
-    const handleUpdate = () => {
-        navigate("/profile");
-    }
+    const handleUpdate = (evt) => {
+        evt.preventDefault();
+        window.location.reload();
+        // TODO: send form to API
+    };
 
     return (
         <div>
             <form>
                 <label>Username:</label>
                 <br></br>
-                <input type="text" placeholder="username" value={username} />
+                <input type="text" placeholder="username" value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
                 <br></br>
 
                 <label>Description:</label>
                 <br></br>
-                <input type="text" placeholder="..." value={description} />
+                <textarea type="text" rows="5" placeholder="..." value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required ></textarea>
                 <br></br>
 
                 <input type="submit" value="Update" onClick={handleUpdate} />
