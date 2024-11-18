@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
 
 function UserDataEdit({ username: initialUsername, description: initialDescription }) {
     const [username, setUsername] = useState(initialUsername);
