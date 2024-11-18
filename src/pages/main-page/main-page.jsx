@@ -1,8 +1,8 @@
 import NavigationBar from '../../components/navigation/navigation';
 
-function MainPage() {
+function MainPage({ movies }) {
     return (
-        <div>
+        <body>
             <NavigationBar />
             <div>
                 <h1>Main Page</h1>
@@ -13,12 +13,21 @@ function MainPage() {
                     <div>
                         <h2>Movie List</h2>
                         <div>
-                            Interstellar
+                            {
+                                movies.map((movie) => {
+                                    let href = "/movies/" + movie.id;
+                                    return (
+                                        <div>
+                                            <a href={href}>{movie.title} ({movie.releaseYear}): {movie.averageRating}</a>
+                                        </div>
+                                    );
+                                })
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </body>
 
     )
 }
