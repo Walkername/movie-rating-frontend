@@ -1,7 +1,11 @@
 import NavigationBar from "../../components/navigation/navigation";
-
+import UserDataEdit from "../../components/user-data-edit/user-data-edit";
+import UserData from "../../components/user-data/user-data";
+import React, { useState } from 'react';
 
 function UserPage() {
+    const [isEditing, setIsEditing] = useState(false);
+
     let username = "Some user";
     let description = "I like movies very much!"
     let favouriteMovie = "Interstellar";
@@ -11,48 +15,42 @@ function UserPage() {
         { title: "Inception", rating: 8.1 }
     ];
 
+    const handleEditButton = () => {
+        setIsEditing(!isEditing); // Toggle state between true and false
+    };
+
     return (
         <div>
             <NavigationBar />
             <div>
                 <h1>User Page</h1>
             </div>
-            <div className="form-field">
-                <div>
-                    <h2>{username}</h2>
-
-                    <h3>Description</h3>
-                    <div>
-                        {description}
+            <div className="page-content-container">
+                <div className="page-content">
+                    {
+                        isEditing ? (
+                            <UserDataEdit
+                                username={username}
+                                description={description} />
+                        ) : (
+                            <UserData className="user-data-content"
+                                username={username}
+                                description={description}
+                                favouriteMovie={favouriteMovie}
+                                averageRating={averageRating}
+                                ratedMovies={ratedMovies}
+                            />
+                        )
+                    }
+                    <div className="user-edit-div">
+                        <button
+                            className="user-edit-button"
+                            onClick={handleEditButton}>
+                            {isEditing ? 'Back' : 'Edit'}
+                        </button>
                     </div>
-
-                    <h3>Favourite movie</h3>
-                    <div>
-                        {favouriteMovie}
-                    </div>
-
-                    <h3>Average rating</h3>
-                    <div>
-                        {averageRating}
-                    </div>
-
-                    <h3>Movie Rated List</h3>
-                    <div>
-                        {
-                            ratedMovies.map((element, index) => {
-                                return (
-                                    <div key={index}>
-                                        {element.title}, {element.rating}
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-
                 </div>
-
             </div>
-
         </div>
     );
 }
