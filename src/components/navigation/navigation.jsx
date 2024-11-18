@@ -10,24 +10,22 @@ function NavigationBar() {
     const links = [
         { text: "Main Page", path: "/" },
         { text: "Profile", path: "/profile" },
-        { text: "Add Movie (Admin)", path: "/movie/add" },
+        { text: "Add Movie (Admin)", path: "/movies/add" },
     ];
 
     return (
-        <div>
-            <nav>
-                {links.map((link, index) => (
-                    <span
-                        className="nav-element"
-                        key={index}
-                        onClick={
-                            () => handleClick(link.path)}
-                    >
-                        {link.text}
-                    </span>
-                ))}
-            </nav>
-        </div >
+        <nav>
+            {links.map((link, index) => (
+                <span
+                    className="nav-element"
+                    key={index}
+                    onClick={
+                        () => handleClick(link.path)}
+                >
+                    {link.text}
+                </span>
+            ))}
+        </nav>
     )
 }
 
