@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import NavigationBar from '../../components/navigation/navigation';
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
 
@@ -33,8 +34,14 @@ function MainPage() {
         });
     }, []); // Empty dependency array ensures this runs once when the component mounts
 
+    const navigate = useNavigate();
+
+    const handleNavigate = (target) => {
+        navigate(target);
+    }
+
     return (
-        <body>
+        <>
             <NavigationBar />
             <div>
                 <h1>Main Page</h1>
@@ -43,7 +50,7 @@ function MainPage() {
             <div className="page-content-container">
                 <div className="page-content">
                     <div>
-                        <h2>Movie List</h2>
+                        <h2 style={{textAlign: "center"}}>Movie List</h2>
                         <div>
                             {
                                 loading ? (
@@ -51,11 +58,11 @@ function MainPage() {
                                 ) : error ? (
                                     <div>Error: {error}</div>
                                 ) :
-                                movies.map((movie) => {
+                                movies.map((movie, index) => {
                                     let href = "/movies/" + movie.id;
                                     return (
-                                        <div>
-                                            <a href={href}>{movie.title} ({movie.releaseYear}): {movie.averageRating}</a>
+                                        <div key={index} className="movie-div" onClick={() => handleNavigate(href)}>
+                                            {index + 1}: {movie.title} ({movie.releaseYear})
                                         </div>
                                     );
                                 })
@@ -64,7 +71,7 @@ function MainPage() {
                     </div>
                 </div>
             </div>
-        </body>
+        </>
 
     )
 }
