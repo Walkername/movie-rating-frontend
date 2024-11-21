@@ -43,7 +43,7 @@ function AddMoviePage() {
     };
 
     return (
-        <body>
+        <>
             <NavigationBar />
             <div>
                 <h1>Add Movie In DB</h1>
@@ -92,7 +92,7 @@ function AddMoviePage() {
                 </div>
             </div>
 
-        </body>
+        </>
     );
 }
 

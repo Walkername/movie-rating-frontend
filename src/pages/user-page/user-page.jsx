@@ -20,10 +20,10 @@ function UserPage() {
     };
 
     return (
-        <body>
+        <>
             <NavigationBar />
             <div>
-                <h1>User Page</h1>
+                <h1>User Page (In Development)</h1>
             </div>
             <div className="page-content-container">
                 <div className="page-content">
@@ -51,7 +51,7 @@ function UserPage() {
                     </div>
                 </div>
             </div>
-        </body>
+        </>
     );
 }
 
