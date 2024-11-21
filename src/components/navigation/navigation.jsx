@@ -9,8 +9,9 @@ function NavigationBar() {
 
     const links = [
         { text: "Main Page", path: "/" },
-        { text: "Profile", path: "/profile" },
+        { text: "Profile (in dev.)", path: "/profile" },
         { text: "Add Movie (Admin)", path: "/movies/add" },
+        { text: "Add User (Admin)", path: "/users/add" }
     ];
 
     return (
