@@ -85,7 +85,7 @@ function MoviePage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        const url = `${process.env.REACT_APP_RATING_SERVICE_URL}/ratings/add`; // Replace with your desired endpoint
+        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/rate`; // Replace with your desired endpoint
 
         fetch(url, {
             method: "POST",
