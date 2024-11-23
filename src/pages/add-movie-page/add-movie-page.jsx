@@ -17,7 +17,7 @@ function AddMoviePage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/add`; // Replace with your desired endpoint
+        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/add`; // Replace with your desired endpoint
 
         fetch(url, {
             method: "POST",

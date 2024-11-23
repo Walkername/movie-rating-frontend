@@ -15,7 +15,7 @@ function AddUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        const url = `${process.env.REACT_APP_USER_SERVICE_URL}/add`; // Replace with your desired endpoint
+        const url = `${process.env.REACT_APP_USER_SERVICE_URL}/users/add`; // Replace with your desired endpoint
 
         fetch(url, {
             method: "POST",

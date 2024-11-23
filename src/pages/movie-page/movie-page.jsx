@@ -9,7 +9,7 @@ function MoviePage() {
     const [error, setError] = useState(null); // State for errors
 
     useEffect(() => {
-        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/${id}`; // Replace with your API endpoint
+        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/${id}`; // Replace with your API endpoint
 
         fetch(url, {
             method: "GET",
@@ -47,7 +47,7 @@ function MoviePage() {
     const [users, setUsers] = useState([]); // State for the movie data
 
     useEffect(() => {
-        const url = `${process.env.REACT_APP_USER_SERVICE_URL}`; // Replace with your API endpoint
+        const url = `${process.env.REACT_APP_USER_SERVICE_URL}/users`; // Replace with your API endpoint
 
         fetch(url, {
             method: "GET",
@@ -85,7 +85,7 @@ function MoviePage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        const url = `${process.env.REACT_APP_RATING_SERVICE_URL}/add`; // Replace with your desired endpoint
+        const url = `${process.env.REACT_APP_RATING_SERVICE_URL}/ratings/add`; // Replace with your desired endpoint
 
         fetch(url, {
             method: "POST",
@@ -115,7 +115,7 @@ function MoviePage() {
     const [usersR, setUsersR] = useState([]); // State for the movie data
 
     useEffect(() => {
-        const url = `${process.env.REACT_APP_USER_SERVICE_URL}/movie/${id}`; // Replace with your API endpoint
+        const url = `${process.env.REACT_APP_USER_SERVICE_URL}/users/movie/${id}`; // Replace with your API endpoint
 
         fetch(url, {
             method: "GET",

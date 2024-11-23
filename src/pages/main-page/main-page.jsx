@@ -9,7 +9,7 @@ function MainPage() {
     const [error, setError] = useState(null); // State to handle errors
 
     useEffect(() => {
-        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}`; // Replace with your API endpoint
+        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies`;; // Replace with your API endpoint
 
         fetch(url, {
             method: "GET",
