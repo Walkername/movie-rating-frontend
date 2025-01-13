@@ -1,8 +1,10 @@
 h1 {
     display: flex; /* Use Flexbox to center content */
     justify-content: center; /* Center horizontally */
+    margin-top: 70px;
     /*height: 100vh; /* Full viewport height */
     /*background-color: #f0f0f0; /* Optional: Add a background color */
+    
 }
 
 div {
@@ -41,8 +43,11 @@ div {
 }
 
 nav {
+    position: fixed;
     display: flex;
+    top: 0;
     height: 50px;
+    width: 100%;
     justify-content: center;
     align-items: center;
     background-color: rgb(20, 20, 20);
@@ -50,7 +55,6 @@ nav {
 
 .nav-element {
     height: 100%;
-    position: inherit;
     font-size: 22px;
     padding-left: 50px;
     padding-right: 50px;
@@ -84,4 +88,9 @@ textarea {
 .movie-div:hover {
     cursor: pointer;
     background-color: #d4d4d4;
+}
+
+.page-button {
+    text-align: center;
+    margin: 5px;
 }

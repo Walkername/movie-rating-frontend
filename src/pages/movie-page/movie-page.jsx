@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import NavigationBar from "../../components/navigation/navigation";
 import { useEffect, useState } from "react";
 
@@ -7,6 +7,8 @@ function MoviePage() {
     const [movie, setMovie] = useState(null); // State for the movie data
     const [loading, setLoading] = useState(true); // State for loading
     const [error, setError] = useState(null); // State for errors
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/${id}`; // Replace with your API endpoint
@@ -31,16 +33,9 @@ function MoviePage() {
                 console.error("Error fetching movie:", error);
                 setError(error.message); // Set the error message
                 setLoading(false); // Stop loading
+                navigate("/");
             });
-    }, [id]); // Dependency array ensures this runs whenever `id` changes
-
-    // if (loading) {
-    //     return <div>Loading movie...</div>;
-    // }
-
-    // if (error) {
-    //     return <div>Error: {error}</div>;
-    // }
+    }, [id, navigate]); // Dependency array ensures this runs whenever `id` changes
 
     // USERS
 
@@ -85,10 +80,17 @@ function MoviePage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/rate`; // Replace with your desired endpoint
+        let url = `${process.env.REACT_APP_RATING_SERVICE_URL}/ratings/add`; // Replace with your desired endpoint
+        let sendMethod = "POST";
+
+        if (usersR.some(user => user.userId === parseInt(formData.userId))) {
+            sendMethod = "PATCH";
+            const ratingId = usersR.find(user => user.userId === parseInt(formData.userId)).ratingId;
+            url = `${process.env.REACT_APP_RATING_SERVICE_URL}/ratings/edit/${ratingId}`;
+        }
 
         fetch(url, {
-            method: "POST",
+            method: sendMethod,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -135,7 +137,35 @@ function MoviePage() {
             .catch((error) => {
                 console.error("Error fetching movie:", error);
             });
-    }, []);
+    }, [id]);
+
+    // DELETE MOVIE
+
+    const handleDelete = () => {
+        const url = `${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/delete/${id}`
+
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Failed to delete the movie");
+            })
+            .then((data) => {
+                console.log("Movie deleted successfully:", data);
+                alert("Movie deleted successfully:");
+                navigate("/");
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Error deleting movie");
+            });
+    }
 
     if (loading) {
         return <div>Loading movie...</div>;
@@ -156,6 +186,10 @@ function MoviePage() {
                 <div className="page-content-container">
                     <div className="page-content">
                         <div>
+                            <div>
+                                <button onClick={handleDelete}>Delete</button>
+                            </div>
+
                             <h3>Description</h3>
                             <div>
                                 {movie.description}
@@ -166,9 +200,12 @@ function MoviePage() {
                             <div>
                                 <b>Average rating:</b> {
                                     movie.averageRating !== 0.0
-                                        ? Math.round(movie.averageRating * 100) / 100
+                                        ? movie.averageRating
                                         : <span>no ratings</span>
                                 }
+                            </div>
+                            <div>
+                                <b>Scores:</b> {movie.scores}
                             </div>
 
                             <div>
@@ -177,7 +214,7 @@ function MoviePage() {
                                         <option value="">Choose user</option>
                                         {
                                             users.map((user, index) => {
-                                                return  (
+                                                return (
                                                     <option key={index} value={user.id}>{user.username}</option>
                                                 )
                                             })
