@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NavigationBar from "../../components/navigation/navigation";
+import { addUser } from "../../api/user-api";
 
 function AddUserPage() {
     const [formData, setFormData] = useState({
@@ -15,29 +16,15 @@ function AddUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        const url = `${process.env.REACT_APP_USER_SERVICE_URL}/users/add`; // Replace with your desired endpoint
-
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        })
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Failed to add the user");
-        })
-        .then((data) => {
-            console.log("User added successfully:", data);
-            alert("User added successfully!");
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("Error adding user");
-        });
+        addUser()
+            .then((data) => {
+                console.log("User added successfully:", data);
+                alert("User added successfully!");
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Error adding user");
+            });
     };
 
     return (
@@ -49,26 +36,26 @@ function AddUserPage() {
 
             <div className="page-content-container">
                 <div className="page-content">
-                <form className="new-user-form" onSubmit={handleSubmit}>
+                    <form className="new-user-form" onSubmit={handleSubmit}>
                         <label>Username:</label>
                         <br />
-                        <input 
-                            type="text" 
-                            placeholder="Username" 
-                            name="username" 
-                            value={formData.username} 
-                            onChange={handleChange} 
-                            required 
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            required
                         />
                         <br />
 
                         <label>Description:</label>
                         <br />
-                        <textarea 
-                            rows="3" 
-                            placeholder="..." 
-                            name="description" 
-                            value={formData.description} 
+                        <textarea
+                            rows="3"
+                            placeholder="..."
+                            name="description"
+                            value={formData.description}
                             onChange={handleChange}
                         ></textarea>
                         <br />
@@ -77,7 +64,6 @@ function AddUserPage() {
                     </form>
                 </div>
             </div>
-
         </>
     );
 }

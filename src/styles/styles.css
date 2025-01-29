@@ -1,7 +1,6 @@
 h1 {
     display: flex; /* Use Flexbox to center content */
     justify-content: center; /* Center horizontally */
-    margin-top: 70px;
     /*height: 100vh; /* Full viewport height */
     /*background-color: #f0f0f0; /* Optional: Add a background color */
     
@@ -43,7 +42,7 @@ div {
 }
 
 nav {
-    position: fixed;
+    position: sticky;
     display: flex;
     top: 0;
     height: 50px;
