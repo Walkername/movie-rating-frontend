@@ -18,7 +18,7 @@ function AddMoviePage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        addMovie()
+        addMovie(formData)
             .then((data) => {
                 console.log("Movie added successfully:", data);
                 alert("Movie added successfully!");
@@ -65,7 +65,8 @@ function AddMoviePage() {
                         <label>Release Year:</label>
                         <br />
                         <input
-                            type="text"
+                            type="number"
+                            min="0"
                             placeholder="example, 2000"
                             name="releaseYear"
                             value={formData.releaseYear}

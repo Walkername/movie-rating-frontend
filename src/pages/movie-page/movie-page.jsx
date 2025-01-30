@@ -5,6 +5,7 @@ import RateMovie from "../../components/rate-movie/rate-movie";
 import DeleteButton from "../../components/delete-button/delete-button";
 import { useEffect, useState } from "react";
 import { getMovie } from "../../api/movie-api";
+import MovieDetailsEdit from "../../components/movie-details-edit/movie-details-edit";
 
 function MoviePage() {
     const { id } = useParams(); // Get the movie ID from the URL parameters
@@ -18,7 +19,14 @@ function MoviePage() {
             .catch((error) => {
                 console.error(error);
             });
-    }, [id]); // Dependency array ensures this runs whenever `id` changes
+    }, [id]); // this runs whenever `id` changes
+
+    // Handle edit button
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleEdit = () => {
+        setIsEditing(!isEditing);
+    }
 
     return (
         <>
@@ -29,13 +37,25 @@ function MoviePage() {
                         movie == null
                             ? <h1>Error: Movie was not found</h1>
                             : <div>
-                                <DeleteButton id={id} />
+                                {
+                                    !isEditing
+                                        ? <>
+                                            <MovieDetails movie={movie} />
+                                            <RateMovie movieId={id} />
+                                        </>
+                                        : <>
+                                            <DeleteButton id={id} />
+                                            <MovieDetailsEdit movie={movie} />
+                                        </>
 
-                                <MovieDetails movie={movie} />
-
-                                <RateMovie movieId={id} />
+                                }
                             </div>
                     }
+                    <div>
+                        <button onClick={handleEdit}>
+                            {isEditing ? "Back" : "Edit"}
+                        </button>
+                    </div>
                 </div>
             </div>
 

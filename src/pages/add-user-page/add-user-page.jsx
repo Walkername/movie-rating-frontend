@@ -16,7 +16,7 @@ function AddUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
-        addUser()
+        addUser(formData)
             .then((data) => {
                 console.log("User added successfully:", data);
                 alert("User added successfully!");

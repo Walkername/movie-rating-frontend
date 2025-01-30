@@ -1,10 +1,28 @@
 
-export const addMovie = async () => {
+export const addMovie = async (formData) => {
     const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/add`, {
-        method: "POST"
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
     });
     if (!response.ok) {
-        throw new Error('Failed to get movies with pagination');
+        throw new Error('Failed to add new movie');
+    }
+    return response.json();
+}
+
+export const updateMovie = async (id, formData) => {
+    const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/edit/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
+    });
+    if (!response.ok) {
+        throw new Error('Failed to update the movie');
     }
     return response.json();
 }

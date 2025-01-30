@@ -1,7 +1,11 @@
 
-export const addUser = async () => {
+export const addUser = async (formData) => {
     const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/users/add`, {
-        method: "POST"
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
     });
     if (!response.ok) {
         throw new Error('Failed to add new user');
