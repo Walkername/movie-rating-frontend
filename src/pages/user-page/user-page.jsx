@@ -1,15 +1,28 @@
 import NavigationBar from "../../components/navigation/navigation";
 import UserDataEdit from "../../components/user-data-edit/user-data-edit";
 import UserData from "../../components/user-data/user-data";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import getClaimFromToken from "../../utils/token-validation/token-validation";
+import { getUser } from "../../api/user-api";
 
 function UserPage() {
     const [isEditing, setIsEditing] = useState(false);
+    const token = localStorage.getItem("token");
+    const id = getClaimFromToken(token, "id");
 
-    let username = "Some user";
-    let description = "I like movies very much!"
-    let favouriteMovie = "Interstellar";
-    let averageRating = 7.8;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        getUser(id)
+            .then((data) => {
+                setUser(data); // Set the movie data
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, [id]);
+
     const ratedMovies = [
         { title: "Interstellar", rating: 9.8 },
         { title: "Inception", rating: 8.1 }
@@ -23,24 +36,31 @@ function UserPage() {
         <>
             <NavigationBar />
             <div>
-                <h1>User Page (In Development)</h1>
+                <h1>Profile</h1>
             </div>
             <div className="page-content-container">
                 <div className="page-content">
                     {
-                        isEditing ? (
-                            <UserDataEdit
-                                username={username}
-                                description={description} />
-                        ) : (
-                            <UserData className="user-data-content"
-                                username={username}
-                                description={description}
-                                favouriteMovie={favouriteMovie}
-                                averageRating={averageRating}
-                                ratedMovies={ratedMovies}
-                            />
-                        )
+                        user == null
+                            ? <h1>Error: Data was not found</h1>
+                            : <>
+                                {
+                                    isEditing ? (
+                                        <UserDataEdit
+                                            username={user.username}
+                                            description={user.description}
+                                            editing={setIsEditing} />
+                                    ) : (
+                                        <UserData className="user-data-content"
+                                            username={user.username}
+                                            description={user.description}
+                                            favouriteMovie={user.favouriteMovie}
+                                            averageRating={user.averageRating}
+                                            ratedMovies={ratedMovies}
+                                        />
+                                    )
+                                }
+                            </>
                     }
                     <div className="user-edit-div">
                         <button
