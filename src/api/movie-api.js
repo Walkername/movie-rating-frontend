@@ -1,9 +1,11 @@
 
 export const addMovie = async (formData) => {
+    const token = localStorage.getItem("token");
     const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/add`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
         },
         body: JSON.stringify(formData)
     });
