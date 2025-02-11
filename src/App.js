@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route>
+        <Route element={<AdminRoute />}>
           <Route path="/movies/add" element={<AddMoviePage />} />
           <Route path="/users/add" element={<AddUserPage />} />
         </Route>
