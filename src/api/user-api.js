@@ -26,7 +26,23 @@ export const getUser = async (id) => {
     return response.json();
 }
 
-export const updateUser = async (id, formData) => {
+export const updateUsername = async (id, formData) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/users/edit/username/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
+    if (!response.ok) {
+        throw new Error('Failed to update the username');
+    }
+    return response.json();
+}
+
+export const updateUserData = async (id, formData) => {
     const token = localStorage.getItem("token");
     const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/users/edit/${id}`, {
         method: "PATCH",

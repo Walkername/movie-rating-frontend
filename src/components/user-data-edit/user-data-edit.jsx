@@ -1,25 +1,47 @@
 import { useState } from "react";
-import { updateUser } from "../../api/user-api";
 import getClaimFromToken from "../../utils/token-validation/token-validation";
+import { updateUserData, updateUsername } from "../../api/user-api";
 
-function UserDataEdit({ username: initialUsername, description: initialDescription, editing: setIsEditing }) {
+function UserDataEdit({ username: initialUsername, description: initialDescription}) {
     const token = localStorage.getItem("token");
     const id = getClaimFromToken(token, "id");
 
-    const [formData, setFormData] = useState({
-        username: initialUsername,
+    const [formUsername, setFormUsername] = useState({
+        username: initialUsername
+    });
+
+    const [formUserData, setFormUserData] = useState({
         description: initialDescription
     });
 
-    const handleChange = (e) => {
+    const handleChangeUsername = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormUsername({ ...formUsername, [name]: value });
     };
 
-    const handleUpdate = (evt) => {
+    const handleChangeUserData = (e) => {
+        const { name, value } = e.target;
+        setFormUserData({ ...setFormUserData, [name]: value });
+    };
+
+    const handleUpdateUsername = (evt) => {
         evt.preventDefault();
 
-        updateUser(id, formData)
+        updateUsername(id, formUsername)
+            .then((data) => {
+                console.log("Updated successfully:", data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+        window.location.reload();
+    };
+
+    const handleUpdateUserData = (evt) => {
+        evt.preventDefault();
+
+        updateUserData(id, formUserData)
             .then((data) => {
                 console.log("Updated successfully:", data);
             })
@@ -32,20 +54,25 @@ function UserDataEdit({ username: initialUsername, description: initialDescripti
 
     return (
         <div>
-            <form method="PATCH" onSubmit={handleUpdate}>
+            <form method="PATCH" onSubmit={handleUpdateUsername}>
                 <label>Username:</label>
                 <br></br>
-                <input name="username" type="text" placeholder="username" value={formData.username}
-                    onChange={handleChange}
+                <input name="username" type="text" placeholder="username" value={formUsername.username}
+                    onChange={handleChangeUsername}
                     required
-                />
-                <br></br>
+                />{"  "}
 
+                <input type="submit" value="Update" />
+            </form>
+
+            <form method="PATCH" onSubmit={handleUpdateUserData}>
                 <label>Description:</label>
                 <br></br>
-                <textarea name="description" type="text" rows="5" placeholder="..." value={formData.description}
-                    onChange={handleChange}
-                    required ></textarea>
+                <textarea name="description" type="text" rows="5" placeholder="..." value={formUserData.description}
+                    onChange={handleChangeUserData}
+                    required >
+                </textarea> 
+                {"  "}
                 <br></br>
 
                 <input type="submit" value="Update" />

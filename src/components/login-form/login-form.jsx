@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [formData, setFormData] = useState({
         username: "",
@@ -21,12 +22,13 @@ export default function LoginForm() {
         login(formData)
             .then((data) => {
                 console.log("Login successfully:", data);
+                setErrorMessage("");
                 localStorage.setItem("token", data.token);
                 navigate("/profile");
             })
             .catch((error) => {
                 console.error("Error:", error);
-                alert("Error adding movie");
+                setErrorMessage("Wrong username or password!");
             });
 
     }
@@ -42,6 +44,14 @@ export default function LoginForm() {
             <br></br>
             <input name="password" type="password" min="5" value={formData.title} onChange={handleChange} required />
             <br></br>
+            {
+                errorMessage
+                    ? <>
+                        <span style={{ color: "red" }}>{errorMessage}</span>
+                        <br></br>
+                    </>
+                    : <></>
+            }
 
             <input type="submit" value="Login" />
         </form>

@@ -49,7 +49,7 @@ function UserPage() {
                                         <UserDataEdit
                                             username={user.username}
                                             description={user.description}
-                                            editing={setIsEditing} />
+                                        />
                                     ) : (
                                         <UserData className="user-data-content"
                                             username={user.username}
