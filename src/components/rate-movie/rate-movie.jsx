@@ -1,41 +1,41 @@
 import { useEffect, useState } from "react";
-import { getUsers, getUsersRatedMovie } from "../../api/user-api";
-import { addRating, updateRating } from "../../api/rating-api";
+import { getUsersRatedMovie } from "../../api/user-api";
+import { addRating, getRating, updateRating } from "../../api/rating-api";
+import getClaimFromToken from "../../utils/token-validation/token-validation";
 
 function RateMovie({ movieId }) {
-    // USERS
-    const [users, setUsers] = useState([]); // State for the movie data
+    const token = localStorage.getItem("token");
+    const userId = getClaimFromToken(token, "id");
+
+    // CURRENT RATING
+    const [rating, setRating] = useState(null);
+
     useEffect(() => {
-        getUsers()
+        getRating(userId, movieId)
             .then((data) => {
-                setUsers(data); // Set the movie data
+                console.log("Rating got successfully:", data);
+                setRating(data.rating);
             })
             .catch((error) => {
-                console.error('Error: ', error);
-            });
-    }, []);
+                console.error("Error:", error);
+            })
+    }, [movieId, userId])
 
-    // RATING FORM
-    const [formData, setFormData] = useState({
-        userId: '',
-        movieId: movieId,
-        rating: ''
-    });
+    // SEND RATING
+    const handleSubmit = (rateValue) => {
+        setRating(rateValue);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+        const formData = {
+            userId: userId,
+            movieId: movieId,
+            rating: rateValue
+        }
 
         if (usersR.some(user => user.userId === parseInt(formData.userId))) {
             const ratingId = usersR.find(user => user.userId === parseInt(formData.userId)).ratingId;
             updateRating(ratingId, formData)
                 .then((data) => {
                     console.log("Rating updated successfully:", data);
-                    alert("Rating updated successfully!")
                 })
                 .catch((error) => {
                     console.error("Error:", error);
@@ -45,7 +45,6 @@ function RateMovie({ movieId }) {
             addRating(formData)
                 .then((data) => {
                     console.log("Rating added successfully:", data);
-                    alert("Rating added successfully!");
                 })
                 .catch((error) => {
                     console.error("Error:", error);
@@ -70,30 +69,27 @@ function RateMovie({ movieId }) {
     return (
         <div>
             <div>
-                <form onSubmit={handleSubmit}>
-                    <select value={formData.userId} name="userId" onChange={handleChange} required>
-                        <option value="">Choose user</option>
-                        {
-                            users.map((user, index) => {
-                                return (
-                                    <option key={index} value={user.id}>{user.username}</option>
-                                )
-                            })
-                        }
-                    </select>
-                    :
-                    <input
-                        type="number"
-                        max="10"
-                        min="0"
-                        name="rating"
-                        value={formData.rating}
-                        onChange={handleChange}
-                        placeholder="0"
-                        required
-                    />
-                    <input type="submit" value="Rate" />
-                </form>
+                {
+                    [...Array(10)].map((_, index) => {
+                        const rateValue = index + 1;
+                        return (
+                            <button
+                                key={rateValue}
+                                onClick={() => handleSubmit(rateValue)}
+                                style={{
+                                    margin: '5px',
+                                    fontSize: '16px',
+                                    backgroundColor: rateValue === rating ? '#4CAF50' : '#f1f1f1',
+                                    color: rateValue === rating ? 'white' : 'black',
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                {rateValue}
+                            </button>
+                        );
+                    })
+                }
             </div>
 
             <h3>Users that rated the movie:</h3>

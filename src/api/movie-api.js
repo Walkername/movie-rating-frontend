@@ -54,8 +54,12 @@ export const getMovie = async (id) => {
 }
 
 export const deleteMovie = async (id) => {
+    const token = localStorage.getItem("token");
     const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/delete/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
     });
     if (!response.ok) {
         throw new Error(`Failed to delete movie with this id:${id}`);
