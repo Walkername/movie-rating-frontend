@@ -1,42 +1,28 @@
+import RatedMoviesList from "../rated-movies-list/rated-movies-list";
 
-function UserData({username, description, favouriteMovie, averageRating, ratedMovies}) {
+function UserData({ user }) {
     return (
         <div>
-            <h2>{username}</h2>
+            <h2>{user.username}</h2>
 
             <h3>Description</h3>
             <div>
-                {description}
+                {user.description}
             </div>
 
             <h3>Favourite movie</h3>
             <div>
-                {favouriteMovie}
+                {user.favouriteMovie}
             </div>
 
             <h3>Average rating</h3>
             <div>
-                {averageRating}
+                {user.averageRating}
             </div>
 
-            <h3>Movie Rated List</h3>
-            <div>
-                {
-                    ratedMovies && ratedMovies.length > 0 ? (
-                        ratedMovies.map((element, index) => {
-                            return (
-                                <div key={index}>
-                                    {element.title}, {element.rating}
-                                </div>
-                            )
-                        })
-                    ) : (
-                        <div>
-                            No rated movies
-                        </div>
-                    )
-                }
-            </div>
+            <h3>Scores: {user.scores}</h3>
+
+            <RatedMoviesList userId={user.id} />
         </div>
     )
 }

@@ -2,16 +2,16 @@ import { useState } from "react";
 import getClaimFromToken from "../../utils/token-validation/token-validation";
 import { updateUserData, updateUsername } from "../../api/user-api";
 
-function UserDataEdit({ username: initialUsername, description: initialDescription}) {
+function UserDataEdit({ user }) {
     const token = localStorage.getItem("token");
     const id = getClaimFromToken(token, "id");
 
     const [formUsername, setFormUsername] = useState({
-        username: initialUsername
+        username: user.username
     });
 
     const [formUserData, setFormUserData] = useState({
-        description: initialDescription
+        description: user.description
     });
 
     const handleChangeUsername = (e) => {

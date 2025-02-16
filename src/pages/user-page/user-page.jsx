@@ -23,11 +23,6 @@ function UserPage() {
             });
     }, [id]);
 
-    const ratedMovies = [
-        { title: "Interstellar", rating: 9.8 },
-        { title: "Inception", rating: 8.1 }
-    ];
-
     const handleEditButton = () => {
         setIsEditing(!isEditing); // Toggle state between true and false
     };
@@ -47,16 +42,11 @@ function UserPage() {
                                 {
                                     isEditing ? (
                                         <UserDataEdit
-                                            username={user.username}
-                                            description={user.description}
+                                            user={user}
                                         />
                                     ) : (
                                         <UserData className="user-data-content"
-                                            username={user.username}
-                                            description={user.description}
-                                            favouriteMovie={user.favouriteMovie}
-                                            averageRating={user.averageRating}
-                                            ratedMovies={ratedMovies}
+                                            user={user}
                                         />
                                     )
                                 }

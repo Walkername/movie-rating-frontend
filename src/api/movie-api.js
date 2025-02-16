@@ -67,3 +67,13 @@ export const deleteMovie = async (id) => {
     return response.json();
 }
 
+export const getMoviesByUser = async (id) => {
+    const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/user/${id}`, {
+        method: "GET",
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to get movies by this user_id:${id}`);
+    }
+    return response.json();
+}
+

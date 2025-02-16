@@ -19,7 +19,7 @@ function RateMovie({ movieId }) {
             .catch((error) => {
                 console.error("Error:", error);
             })
-    }, [movieId, userId])
+    }, [movieId, userId]);
 
     // SEND RATING
     const handleSubmit = (rateValue) => {
