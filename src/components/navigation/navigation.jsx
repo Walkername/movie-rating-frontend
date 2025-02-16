@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import getClaimFromToken from "../../utils/token-validation/token-validation";
 
 function NavigationBar() {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const exp = getClaimFromToken(token, "exp");
+    const authStatus = Date.now() / 1000 <= exp;
 
     const handleClick = (target) => {
         navigate(target);
@@ -33,7 +36,7 @@ function NavigationBar() {
                 </span>
             ))}
             {
-                token ?
+                authStatus ?
                     <button onClick={handleLogout}>Log out</button>
                     :
                     <>
