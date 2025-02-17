@@ -93,3 +93,25 @@ textarea {
     text-align: center;
     margin: 5px;
 }
+
+td {
+    text-align: center;
+}
+
+tr:nth-child(even) {
+	background-color: #dadada;
+}
+
+th {
+    border-bottom: 3px solid;  
+}
+
+tr:hover {
+	background-color: #e8ffff !important;
+    cursor: pointer;
+}
+
+table {
+    width: 500px;
+    border: 1px solid;
+}

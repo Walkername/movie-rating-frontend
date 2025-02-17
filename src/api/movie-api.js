@@ -67,8 +67,8 @@ export const deleteMovie = async (id) => {
     return response.json();
 }
 
-export const getMoviesByUser = async (id) => {
-    const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/user/${id}`, {
+export const getMoviesByUser = async (id, page, limit, sort) => {
+    const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/user/${id}?page=${page}&limit=${limit}&byDate=${sort}`, {
         method: "GET",
     });
     if (!response.ok) {
