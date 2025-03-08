@@ -69,16 +69,25 @@ nav {
     flex-grow: 1; /* Allow this container to take up remaining space */
 }
 
-.logout {
+.auth-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.auth-button {
     height: 100%;
     font-size: 16px;
     color: white;
     display: inline-block; /* Make the element wrap around the text */
     padding: 5px 10px; /* Add padding for spacing around the text */
-    margin-right: 20px;
+    transition: all 0.5s ease; /* Smooth transition for hover effects */
 }
 
-.logout:hover {
+.auth-button:hover {
+    cursor: pointer;
     border: 1px solid;
     border-radius: 20px;
     text-decoration: underline;
