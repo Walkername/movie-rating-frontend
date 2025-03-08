@@ -17,8 +17,7 @@ function NavigationBar() {
     }
 
     const links = [
-        { text: "MOVIE CLUSTER", path: "/" },
-        { text: "Profile", path: "/profile" }
+        { text: "MOVIE CLUSTER", path: "/" }
     ];
 
     return (
@@ -34,7 +33,17 @@ function NavigationBar() {
                         {link.text}
                     </span>
                 ))}
+                {
+                    authStatus ?
+                        <span
+                            className="nav-element"
+                            onClick={() => navigate("/profile")}
+                        >Profile</span>
+                        : <></>
+                }
+
             </span>
+
             <span className="auth-buttons">
                 {
                     authStatus ?
