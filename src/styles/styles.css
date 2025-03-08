@@ -53,7 +53,6 @@ nav {
 }
 
 .nav-element {
-    height: 100%;
     font-size: 22px;
     padding-left: 50px;
     padding-right: 50px;
@@ -63,9 +62,23 @@ nav {
     font-weight: bold;
 }
 
+.search-field {
+    height: 30px;
+    align-content: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    background-color: rgb(161, 161, 161);
+}
+
+.search-field:focus {
+    background-color: white;
+}
+
 .nav-center {
     display: flex;
     justify-content: center; /* Center the elements inside this container */
+    align-content: center;
     flex-grow: 1; /* Allow this container to take up remaining space */
 }
 
@@ -96,10 +109,6 @@ nav {
 .nav-element:hover {
     cursor: pointer;
     color: rgb(255, 255, 255);
-}
-
-input {
-    margin-bottom: 5px;
 }
 
 .input-description {

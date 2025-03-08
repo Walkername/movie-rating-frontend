@@ -33,6 +33,7 @@ function NavigationBar() {
                         {link.text}
                     </span>
                 ))}
+                <input className="search-field" type="text" />
                 {
                     authStatus ?
                         <span
