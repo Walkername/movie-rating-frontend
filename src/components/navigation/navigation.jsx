@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import getClaimFromToken from "../../utils/token-validation/token-validation";
+import SearchField from "../search-field/search-field";
 
 function NavigationBar() {
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ function NavigationBar() {
                         {link.text}
                     </span>
                 ))}
-                <input className="search-field" type="text" />
+                <SearchField />
                 {
                     authStatus ?
                         <span

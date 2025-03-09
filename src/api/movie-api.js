@@ -77,3 +77,13 @@ export const getMoviesByUser = async (id, page, limit, sort) => {
     return response.json();
 }
 
+export const searchMovieByTitle = async (query) => {
+    const response = await fetch(`${process.env.REACT_APP_MOVIE_SERVICE_URL}/movies/search?query=${query}`, {
+        method: "GET",
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to get movies by this query: ${query}`);
+    }
+    return response.json();
+}
+
