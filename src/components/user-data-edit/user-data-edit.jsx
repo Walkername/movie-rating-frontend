@@ -41,7 +41,7 @@ function UserDataEdit({ user }) {
     const handleUpdateUserData = (evt) => {
         evt.preventDefault();
 
-        updateUserData(id, formUserData)
+        updateUserData(user.id, formUserData)
             .then((data) => {
                 console.log("Updated successfully:", data);
             })

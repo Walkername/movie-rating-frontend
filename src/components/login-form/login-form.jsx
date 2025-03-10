@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../../api/auth-api";
 import { useNavigate } from "react-router-dom";
+import getClaimFromToken from "../../utils/token-validation/token-validation";
 
 export default function LoginForm() {
     const navigate = useNavigate();
@@ -24,7 +25,8 @@ export default function LoginForm() {
                 console.log("Login successfully:", data);
                 setErrorMessage("");
                 localStorage.setItem("token", data.token);
-                navigate("/profile");
+                const id = getClaimFromToken(data.token, "id");
+                navigate(`/user/${id}`);
             })
             .catch((error) => {
                 console.error("Error:", error);

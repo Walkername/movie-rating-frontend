@@ -20,7 +20,7 @@ function App() {
           <Route path="/users/add" element={<AddUserPage />} />
         </Route>
         <Route element={<PrivateRoute />}>
-          <Route path="/profile" element={<UserPage />} />
+          <Route path="/user/:id" element={<UserPage />} />
         </Route>
         <Route path="/" element={<MainPage />} />
         <Route path="/register" element={<Register />} />

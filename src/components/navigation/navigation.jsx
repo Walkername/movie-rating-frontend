@@ -6,6 +6,7 @@ function NavigationBar() {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
     const exp = getClaimFromToken(token, "exp");
+    const id = getClaimFromToken(token, "id");
     const authStatus = Date.now() / 1000 <= exp;
 
     const handleClick = (target) => {
@@ -39,7 +40,7 @@ function NavigationBar() {
                     authStatus ?
                         <span
                             className="nav-element"
-                            onClick={() => navigate("/profile")}
+                            onClick={() => navigate(`/user/${id}`)}
                         >Profile</span>
                         : <></>
                 }
