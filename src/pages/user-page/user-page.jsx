@@ -11,9 +11,12 @@ function UserPage() {
 
     const [isEditing, setIsEditing] = useState(false);
     const token = localStorage.getItem("token");
-    const tokenId = getClaimFromToken(token, "id");
-    const tokenRole = getClaimFromToken(token, "role");
-    const isAccessToEdit = parseInt(id) === parseInt(tokenId) || tokenRole === "ADMIN";
+    let isAccessToEdit = false;
+    if (token != null) {
+        const tokenId = getClaimFromToken(token, "id");
+        const tokenRole = getClaimFromToken(token, "role");
+        isAccessToEdit = parseInt(id) === parseInt(tokenId) || tokenRole === "ADMIN";
+    }
 
     const [user, setUser] = useState(null);
 
@@ -46,13 +49,19 @@ function UserPage() {
                             : <>
                                 {
                                     isEditing ?
-                                        (isAccessToEdit ? (
-                                            <UserDataEdit
-                                                user={user}
-                                            />
-                                        ) :
-                                            <></>)
-                                        : (
+                                        (
+                                            isAccessToEdit
+                                                ?
+                                                (
+                                                    <UserDataEdit
+                                                        user={user}
+                                                    />
+                                                )
+                                                :
+                                                <></>
+                                        )
+                                        :
+                                        (
                                             <UserData className="user-data-content"
                                                 user={user}
                                             />
@@ -61,7 +70,8 @@ function UserPage() {
                             </>
                     }
                     {
-                        isAccessToEdit ?
+                        isAccessToEdit
+                            ?
                             <div className="user-edit-div">
                                 <button
                                     className="user-edit-button"
@@ -69,7 +79,8 @@ function UserPage() {
                                     {isEditing ? 'Back' : 'Edit'}
                                 </button>
                             </div>
-                            : <></>
+                            :
+                            <></>
                     }
 
                 </div>

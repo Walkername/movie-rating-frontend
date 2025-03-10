@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { getUsersRatedMovie } from "../../api/user-api";
 import { addRating, getRating, updateRating } from "../../api/rating-api";
 import getClaimFromToken from "../../utils/token-validation/token-validation";
+import { useNavigate } from "react-router-dom";
+import AuthPopup from "../auth-popup/auth-popup";
 
-function RateMovie({ movieId }) {
+function RateMovie({ movieId, isAccessToEdit }) {
     const token = localStorage.getItem("token");
     const userId = getClaimFromToken(token, "id");
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // CURRENT RATING
     const [rating, setRating] = useState(null);
@@ -23,6 +27,11 @@ function RateMovie({ movieId }) {
 
     // SEND RATING
     const handleSubmit = (rateValue) => {
+        if (!isAccessToEdit) {
+            setIsModalOpen(true);
+            return;
+        }
+
         setRating(rateValue);
 
         const formData = {
@@ -68,6 +77,8 @@ function RateMovie({ movieId }) {
 
     return (
         <div>
+            {/* Модальное окно */}
+            {isModalOpen && <AuthPopup setIsModalOpen={setIsModalOpen} />}
             <div>
                 {
                     [...Array(10)].map((_, index) => {
