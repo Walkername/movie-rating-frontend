@@ -24,7 +24,7 @@ function NavigationBar() {
 
     return (
         <nav>
-            <span className="nav-center">
+            <span className="nav-bar-left">
                 {links.map((link, index) => (
                     <span
                         className="nav-element"
@@ -35,7 +35,9 @@ function NavigationBar() {
                         {link.text}
                     </span>
                 ))}
-                <SearchField />
+            </span>
+            <SearchField />
+            <span className="nav-bar-right">
                 {
                     authStatus ?
                         <span
@@ -50,17 +52,17 @@ function NavigationBar() {
             <span className="auth-buttons">
                 {
                     authStatus ?
-                        <span className="auth-button" onClick={handleLogout}>Log out</span>
+                        <>
+                            <span className="auth-button" onClick={handleLogout}>Log out</span>
+                        </>
                         :
                         <>
-                            <span className=" auth-button" onClick={() => navigate("/register")}>Register</span>
+                            <span className="auth-button" onClick={() => navigate("/register")}>Register</span>
                             <span className="auth-button" onClick={() => navigate("/login")}>Login</span>
                         </>
 
                 }
             </span>
-
-
         </nav>
     )
 }

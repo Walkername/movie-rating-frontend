@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getUsersRatedMovie } from "../../api/user-api";
 import { addRating, getRating, updateRating } from "../../api/rating-api";
 import getClaimFromToken from "../../utils/token-validation/token-validation";
-import { useNavigate } from "react-router-dom";
 import AuthPopup from "../auth-popup/auth-popup";
 
 function RateMovie({ movieId, isAccessToEdit }) {
