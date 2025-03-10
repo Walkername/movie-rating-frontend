@@ -13,23 +13,26 @@ function MovieList() {
     const limitPar = searchParams.get("limit") ? searchParams.get("limit") : 10;
     const sortPar = searchParams.get("sort") ? searchParams.get("sort") : true;
 
-    const [page, setPage] = useState(pagePar)
-    const [limit, setLimit] = useState(limitPar)
-    const [sort, setSort] = useState(sortPar)
+    const [page, setPage] = useState(pagePar);
+    const [limit, setLimit] = useState(limitPar);
+    const [sort, setSort] = useState(sortPar);
 
     const [sortBtText, setSortBtText] = useState("Sort ↓");
 
     const handlePageButton = (value) => {
-        setPage(value)
+        setPage(value);
     }
 
     const handleSortButton = (e) => {
-        setSort(!sort)
+        setSort(!sort);
         setSortBtText((prevText) => (prevText === "Sort ↓" ? "Sort ↑" : "Sort ↓"));
     }
 
     const handleLimitButton = (e) => {
-        setLimit(e.target.value)
+        const limitValue = e.target.value;
+        const newPage = Math.floor((limit * page + 1) / limitValue);
+        setPage(newPage);
+        setLimit(e.target.value);
     }
 
     useEffect(() => {
