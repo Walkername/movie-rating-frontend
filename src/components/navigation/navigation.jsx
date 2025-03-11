@@ -7,7 +7,9 @@ function NavigationBar() {
     const token = localStorage.getItem("token");
     const exp = getClaimFromToken(token, "exp");
     const id = getClaimFromToken(token, "id");
+    const role = getClaimFromToken(token, "role");
     const authStatus = Date.now() / 1000 <= exp;
+    const adminStatus = role === "ADMIN";
 
     const handleClick = (target) => {
         navigate(target);
@@ -50,6 +52,14 @@ function NavigationBar() {
                     {
                         authStatus ?
                             <>
+                                {
+                                    adminStatus 
+                                    ?
+                                    <span className="auth-button" onClick={() => navigate("/admin")}>Admin</span>
+                                    :
+                                    <></>
+                                }
+                                
                                 <span className="auth-button" onClick={handleLogout}>Log out</span>
                             </>
                             :

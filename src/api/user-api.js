@@ -21,7 +21,20 @@ export const getUser = async (id) => {
         }
     });
     if (!response.ok) {
-        throw new Error('Failed to add new user');
+        throw new Error('Failed to get user');
+    }
+    return response.json();
+}
+
+export const getUserByUsername = async (username) => {
+    const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/users/username/${username}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    if (!response.ok) {
+        throw new Error('Failed to get user');
     }
     return response.json();
 }

@@ -10,6 +10,7 @@ import Register from './pages/register/register';
 import Login from './pages/login/login';
 import AdminRoute from './utils/admin-route/admin-route';
 import PrivateRoute from './utils/private-route/private-route';
+import AdminPage from './pages/admin-page/admin-page';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route element={<AdminRoute />}>
           <Route path="/movies/add" element={<AddMoviePage />} />
           <Route path="/users/add" element={<AddUserPage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Route>
         <Route path="/user/:id" element={<UserPage />} />
         <Route path="/" element={<MainPage />} />
