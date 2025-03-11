@@ -46,23 +46,23 @@ function NavigationBar() {
                         >Profile</span>
                         : <></>
                 }
+                <span className="auth-buttons">
+                    {
+                        authStatus ?
+                            <>
+                                <span className="auth-button" onClick={handleLogout}>Log out</span>
+                            </>
+                            :
+                            <>
+                                <span className="auth-button" onClick={() => navigate("/register")}>Register</span>
+                                <span className="auth-button" onClick={() => navigate("/login")}>Login</span>
+                            </>
 
+                    }
+                </span>
             </span>
 
-            <span className="auth-buttons">
-                {
-                    authStatus ?
-                        <>
-                            <span className="auth-button" onClick={handleLogout}>Log out</span>
-                        </>
-                        :
-                        <>
-                            <span className="auth-button" onClick={() => navigate("/register")}>Register</span>
-                            <span className="auth-button" onClick={() => navigate("/login")}>Login</span>
-                        </>
 
-                }
-            </span>
         </nav>
     )
 }
